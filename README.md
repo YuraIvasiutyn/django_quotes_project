@@ -1,0 +1,1 @@
+# django_quotes_project
