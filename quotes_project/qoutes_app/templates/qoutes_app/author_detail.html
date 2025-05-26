@@ -1,0 +1,10 @@
+{% extends "qoutes_app/base.html" %}
+
+{% block content %}
+<main class="container">
+    <h1>{{ author.full_name }}</h1>
+    <p><strong>Description:</strong></p>
+    <p>{{ author.description }}</p>
+    <a href="{% url 'qoutes_app:main' %}">← Back to quotes</a>
+</main>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "qoutes_app/base.html" %}
+
+{% block content %}
+
+<nav style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px">
+    {% if user.is_authenticated %}
+    <ul>
+        <li><a href="{% url 'qoutes_app:quote' %}" role="button">Add Quote</a></li>
+        <li><a href="{% url 'qoutes_app:tag' %}" role="button">Add Tag</a></li>
+        <li><a href="{% url 'qoutes_app:author' %}" role="button">Add Author</a></li>
+    </ul>
+    <ul>
+        <li>Welcome <b>{{ user.username }}!</b></li>
+        <li><a href="{% url 'users:logout' %}" role="button">Logout</a></li>
+    </ul>
+    {% else %}
+    <ul>
+        <li><a href="{% url 'users:signup' %}" role="button">Sign Up</a></li>
+        <li><a href="{% url 'users:login' %}" role="button">Login</a></li>
+    </ul>
+    {% endif %}
+</nav>
+<main class="container">
+    <h1>Quotes</h1>
+
+    {% for quote in quotes %}
+        <article>
+            <blockquote>
+                {{ quote.name }}
+            </blockquote>
+            <footer>
+                — <strong><a href="{% url 'qoutes_app:author_detail' quote.author.id %}">{{ quote.author.full_name }}</a></strong>
+                <small>
+                    {% for tag in quote.tags.all %}
+                        #{{ tag.name }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                        (no tags)
+                    {% endfor %}
+                </small>
+            </footer>
+        </article>
+    {% empty %}
+        <p>No quotes available.</p>
+    {% endfor %}
+</main>
+
+{% endblock %}
