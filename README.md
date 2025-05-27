@@ -80,7 +80,9 @@ python3 manage.py startapp users
 
 32. Створюємо профіль користувача
 
-
+---
+1. pip install django-environ
+2. 
 
 
 
